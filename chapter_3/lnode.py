@@ -90,7 +90,7 @@ class LList:                        #普通单链表
         self._head = p
 class LList1(LList): #带有尾节点引用的单链表
     def __init__(self):
-        LList.__init__()
+        LList.__init__(self)
         self._rear = None
     def prepend(self, elem):
         self.num += 1
