@@ -82,8 +82,7 @@ class BinTNode:
 
 class BinTree:
     def __init__(self):
-        self._root = None
-    def is_empty(self):
+       def is_empty(self):
         return self._root is None
     def root(self):
         return self._root
