@@ -1,4 +1,5 @@
 from chapter_5.sstack import LStack
+from chapter_5.squeue import LQueue
 class PrioQueueError(ValueError):
     pass
 class PrioQue:
@@ -107,4 +108,77 @@ class BinTree:
             t = s.pop()
 
 
-        
+def levelorder(t, proc):
+    qu = LQueue()
+    qu.enqueue(t)
+    while not qu.is_empty():
+        t = qu.dequeue()
+        if t is None:
+            continue
+        qu.enqueue(t.left)
+        qu.enqueue(t.right)
+        proc(t.data)
+def preorder_nonrec(t, proc):
+    s = LStack()
+    while t is not None or not s.is_empty():
+        while t is not None:
+            proc(t.data)
+            s.push(t.right)
+            t = t.left
+        t = s.pop()
+
+def preorder_elements(t):
+    s = LStack()
+    while t is not None or not s.is_empty():
+        while t is not None:
+            s.push(t.right)
+            yield t.data
+            t = t.left
+        t = s.pop()
+
+def inorder_nonrec(t, proc):
+    s = LStack()
+    while t is not None or not s.is_empty():
+        while t is not None:
+            s.push(t)
+            t = t.left
+        t = s.pop()
+        proc(t.data)
+        t = t.right
+
+def postorder_nonrec(t, proc):
+    s = LStack()
+    while t is not None or not s.is_empty():
+        while t is not None:
+            s.push(t)
+            t = t.left if t.left is not None else t.right
+        t = s.pop()
+        proc(t.data)
+        if not s.is_empty() and s.top().left == t:
+            t = s.pop().right
+        else:
+            t = None
+class HTNode(BinTNode):
+    def __lt__(self, other):
+        return self.data < other.data
+
+class HuffmanPrioQ(PrioQueue):
+    def number(self):
+        return len(self._elems)\
+
+def HuffmanTree(weights):
+    trees = HuffmanPrioQ()
+    for w in weights:
+        trees.enqueue(HTNode(w))
+    while trees.number() > 1:
+        t1 = trees.dequeue()
+        t2 = trees.dequeue()
+        x = t1.data + t2.data
+        trees.enqueue(HTNode(x,t1,t2))
+    return trees.dequeue()
+
+
+
+if __name__ == '__main__':
+    t = BinTNode(0,BinTNode(1,BinTNode(3),BinTNode(4)),BinTNode(2,BinTNode(5,BinTNode(7)),BinTNode(6)))
+    t = inorder_nonrec(t,lambda x:print(x,end=' '))
