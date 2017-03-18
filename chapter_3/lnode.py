@@ -88,6 +88,7 @@ class LList:                        #普通单链表
             q.next = p
             p = q
         self._head = p
+
 class LList1(LList): #带有尾节点引用的单链表
     def __init__(self):
         LList.__init__(self)
